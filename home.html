@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="./font/iconfont.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/home.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Left navigation bar -->
+      <aside class="aside">
+        <div class="title-wrap">
+          <img class="logo" src="./imgs/logo.png" alt="" />
+          <h1 class="title">StudBud</h1>
+        </div>
+        <div class="menu-wrap">
+          <a class="active" href="./home.html">
+            <i class="iconfont icon-zhuye"></i>Home
+          </a>
+          <a href="./task.html">
+            <i class="iconfont icon-qianbao"></i>Task Management
+          </a>
+          <a href="./pomodoro.html">
+            <i class="iconfont icon-shizhong"></i>Pomodoro Timer</a
+          >
+          <a href="./dictionary.html">
+            <i class="iconfont icon-qingdan"></i>Dictionary</a
+          >
+          <a href="./kanban.html">
+            <i class="iconfont icon-keshikanban"></i>Kanban board</a
+          >
+        </div>
+      </aside>
+      <div class="content">
+        <!-- header -->
+        <header>
+          <input type="text" placeholder="enter to search" />
+          <div class="user">
+            <img class="avatar" src="./imgs/logo.png" alt="" />
+            <span class="name">User</span>
+          </div>
+        </header>
+        <!-- body -->
+        <main>
+          <div class="left">
+            <div class="box-wrap">
+              <div class="box pending">
+                <i class="iconfont icon-tixing"></i>
+                <span>Pending</span>
+                <span>2</span>
+              </div>
+              <div class="box processing">
+                <i class="iconfont icon-dengdai"></i>
+                <span>Pending</span>
+                <span>2</span>
+              </div>
+              <div class="box solved">
+                <i class="iconfont icon-wancheng"></i>
+                <span>Pending</span>
+                <span>2</span>
+              </div>
+            </div>
+            <!-- Show my chart photos -->
+            <div class="chart-wrap">
+              <h3>Task Statistics</h3>
+              <img src="./imgs/task-statistics.png" alt="" />
+            </div>
+          </div>
+          <div class="right">
+            <!-- music player-->
+            <div class="music-wrap">
+              <h3>Music</h3>
+              <div class="audio-wrap">
+                <img class="poster" src="./imgs/logo.png" alt="" />
+                <div>
+                  <h4 id="songNameEle"></h4>
+                  <div class="audio-control">
+                    <i
+                      class="iconfont icon-arrow-double-left"
+                      onclick="lastSong()"
+                    ></i>
+                    <i
+                      class="iconfont icon-arrow-double-right"
+                      onclick="nextSong()"
+                    ></i>
+                    <!-- <button>《</button> -->
+                    <!-- <button>》</button> -->
+                    <audio id="audio" src="" controls>
+                      Your browser does not support the audio element
+                    </audio>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- calendar -->
+            <div class="calendar-wrap">
+              <h3>Calendar</h3>
+              <p id="today"></p>
+            </div>
+            <!-- time counter-->
+            <div class="timer-wrap">
+              <h3>Stopwatch Timer</h3>
+              <div class="count-box">
+                <div class="count-wrap">
+                  <span id="count">0</span>
+                  <span>Min</span>
+                </div>
+              </div>
+              <div class="btns">
+                <button id="start" onclick="start()">
+                  <i class="iconfont icon-bofang"></i>
+                  Start
+                </button>
+                <button id="pause" onclick="pause()">
+                  <i class="iconfont icon-zanting1"></i>Pause
+                </button>
+                <button id="reset" onclick="reset()">
+                  <i class="iconfont icon-zhongxintijiao"></i>Reset
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      /* player */
+      var audioEle = document.querySelector("#audio");
+      var songNameEle = document.querySelector("#songNameEle");
+      // songs list
+      var songs = [
+        "纸短情长（抖音男生版）.mp3",
+        "纸短情长（抖音女生版）.mp3",
+        "纸短情长―抖音小姐姐.mp3",
+      ];
+      //Song Index
+      var songIndex = 0;
+      // songname
+      var songName = "";
+
+      initSong();
+
+      function initSong() {
+        audioEle.src = "./audio/" + songs[songIndex];
+        songName = songs[songIndex].split(".mp3")[0];
+        console.log(songName);
+        songNameEle.innerHTML = songName;
+        audioEle.load();
+      }
+
+      // lastSong
+      function lastSong() {
+        if (songIndex > 0) {
+          songIndex--;
+        } else {
+          songIndex = songs.length - 1;
+        }
+        initSong();
+      }
+
+      // nextSong
+      function nextSong() {
+        if (songIndex + 1 < songs.length) {
+          songIndex++;
+        } else {
+          songIndex = 0;
+        }
+        initSong();
+      }
+
+      /* counter */
+      var countEle = document.querySelector("#count");
+      var startEle = document.querySelector("#start");
+      var pauseEle = document.querySelector("#pause");
+      var resetEle = document.querySelector("#reset");
+      var count = 0;
+      var timer = null;
+
+      // player
+      function start() {
+        if (!timer) {
+          timer = setInterval(() => {
+            countEle.innerHTML = count;
+            count++;
+          }, 1000 * 60);
+          startEle.style.display = "none";
+          pauseEle.style.display = "block";
+        }
+      }
+
+      // pause
+      function pause() {
+        clearInterval(timer);
+        timer = null;
+        startEle.style.display = "block";
+        pauseEle.style.display = "none";
+      }
+
+      // reset
+      function reset() {
+        pause();
+        count = 0;
+        countEle.innerHTML = count;
+      }
+
+      getToday();
+
+      // gettoday
+      function getToday() {
+        var todayEle = document.querySelector("#today");
+        var time = new Date();
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var date = time.getDate();
+        var today = year + "-" + month + "-" + date;
+        todayEle.innerHTML = today;
+      }
+    </script>
+  </body>
+</html>

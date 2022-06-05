@@ -1,0 +1,42 @@
+/* home */
+
+/*  */
+.box-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.box {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /*min-width: 200px;*/
+  width: 30%;
+  height: 120px;
+  color: #fff;
+  border-radius: 10px;
+}
+.pending {
+  background-color: #4790fe;
+}
+.processing {
+  background-color: #63cff5;
+}
+.solved {
+  background-color: #6259e9;
+}
+
+.box img {
+  width: 20px;
+  height: 20px;
+}
+
+.chart-wrap {
+  width: 100%;
+  margin-top: 30px;
+}
+.chart-wrap img {
+  width: 100%;
+  margin-top: 30px;
+}
