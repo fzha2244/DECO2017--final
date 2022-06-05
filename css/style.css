@@ -4,6 +4,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  /* font-family: Arial, "PingFang SC", "Microsoft YaHei"; */
   font-family: "PingFang SC";
 }
 
@@ -25,14 +26,15 @@ a:visited,
 a:active {
   color: #000;
   text-decoration: none;
-}
 
+}
 
 img {
   border: 0;
 
 }
 .container {
+  min-height: 100vh;
   display: flex;
   background-color: #f9f9f9;
 }
@@ -80,14 +82,14 @@ img {
   flex: 1;
 }
 
-header {
+.pc-header {
   padding: 20px 30px;
   display: flex;
   width: 100%;
   background-color: #fff;
 }
 
-header input {
+.pc-header input {
   flex: 1;
   padding: 15px;
   border-radius: 30px;
@@ -106,6 +108,7 @@ header input {
   height: 40px;
   border-radius: 50%;
 }
+
 /* body */
 main {
   padding: 30px;
@@ -114,12 +117,12 @@ main {
 }
 
 .left {
-  /* padding: 0 20px; */
-  margin-right: 20px;
+
   flex: 3;
 }
 
 .right {
+  margin-left: 30px;
   padding: 30px;
   flex: 1;
   background-color: #fff;
@@ -193,7 +196,7 @@ main {
 }
 
 .btns button {
-  /* min-width: 100px; */
+
   margin: 0 20px;
   padding: 10px;
   background-color: #f4faff;
@@ -216,8 +219,54 @@ main {
   display: none;
 }
 
+.m-header {
+  display: none;
+  position: relative;
+  margin-bottom: 10px;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+}
+
+.m-header .avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+}
+
+.m-header .menu {
+  display: none;
+  padding: 10px;
+  position: absolute;
+  right: 10px;
+  top: 50px;
+  z-index: 9;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.m-header .menu a {
+  margin: 5px;
+  padding: 10px;
+  display: block;
+  text-align: center;
+  background-color: #4790fe;
+}
+
 @media screen and (max-width: 540px) {
-  .container {
-    background-color: #f00;
+
+  .aside,
+  .pc-header,
+  .right {
+    display: none;
+  }
+
+  .m-header {
+    display: flex;
+  }
+
+  main {
+    padding: 5px;
   }
 }

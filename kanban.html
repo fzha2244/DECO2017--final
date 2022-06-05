@@ -12,7 +12,7 @@
 
   <body>
     <div class="container">
-      <!-- Left navigation bar-->
+      <!-- Left navigation bar -->
       <aside class="aside">
         <div class="title-wrap">
           <img class="logo" src="./imgs/logo.png" alt="" />
@@ -35,22 +35,36 @@
         </div>
       </aside>
       <div class="content">
-        <!-- header-->
+        <!-- header -->
         <header>
-          <input
-            type="text"
-            placeholder="enter to search"
-            onkeydown="searchWord(event)"
-          />
-          <div class="user">
+          <div class="pc-header">
+            <input
+              type="text"
+              placeholder="enter to search"
+              onkeydown="searchWord(event)"
+            />
+            <div class="user">
+              <img class="avatar" src="./imgs/avatar.jpg" alt="" />
+              <span class="name">User</span>
+            </div>
+          </div>
+          <div class="m-header">
             <img class="avatar" src="./imgs/avatar.jpg" alt="" />
-            <span class="name">User</span>
+            <h1 class="title">StudBud</h1>
+            <i class="iconfont icon-caidan" onclick="toggleMenu()"></i>
+            <div class="menu">
+              <a href="./home.html">Home </a>
+              <a href="./task.html"> Task </a>
+              <a href="./pomodoro.html">Pomodoro </a>
+              <a class="active" href="./dictionary.html">Dictionary</a>
+              <a href="./kanban.html">Kanban </a>
+            </div>
           </div>
         </header>
         <!-- body -->
         <main>
           <div class="left">
-            <!--  kanban --->
+            <!-- kanban -->
             <div class="kanban-wrap">
               <div class="kanban">
                 <h4>Pedding</h4>
@@ -76,7 +90,7 @@
             </div>
           </div>
           <div class="right">
-            <!-- audio  -->
+            <!-- audio -->
             <div class="music-wrap">
               <h3>Music</h3>
               <div class="audio-wrap">
@@ -104,7 +118,7 @@
               <h3>Calendar</h3>
               <p id="today"></p>
             </div>
-            <!-- timer  -->
+            <!-- timer -->
             <div class="timer-wrap">
               <h3>Stopwatch Timer</h3>
               <div class="count-box">
@@ -145,7 +159,7 @@
         return year + "-" + month + "-" + date;
       }
 
-      //  new data
+      // new data
       for (let i = 0; i < addEles.length; i++) {
         addEles[i].addEventListener("click", function (event) {
           var ulEle = this.parentNode.querySelector("ul");
@@ -204,7 +218,7 @@
         }
       });
 
-      //  Processing become solved when clicked
+      // Processing become solved when clicked
       processingEle.addEventListener("click", function (e) {
         e = e || window.event;
         var t = e.target || e.srcElement;

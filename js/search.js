@@ -7,3 +7,13 @@ function searchWord(event) {
     event.target.value = "";
   }
 }
+
+// Mobile menu
+function toggleMenu() {
+  var menuELe = document.querySelector(".menu");
+  if (menuELe.style.display === "none") {
+    menuELe.style.display = "block";
+  } else {
+    menuELe.style.display = "none";
+  }
+}

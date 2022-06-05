@@ -37,14 +37,28 @@
       <div class="content">
         <!-- header -->
         <header>
-          <input
-            type="text"
-            placeholder="enter to search"
-            onkeydown="searchWord(event)"
-          />
-          <div class="user">
+          <div class="pc-header">
+            <input
+              type="text"
+              placeholder="enter to search"
+              onkeydown="searchWord(event)"
+            />
+            <div class="user">
+              <img class="avatar" src="./imgs/avatar.jpg" alt="" />
+              <span class="name">User</span>
+            </div>
+          </div>
+          <div class="m-header">
             <img class="avatar" src="./imgs/avatar.jpg" alt="" />
-            <span class="name">User</span>
+            <h1 class="title">StudBud</h1>
+            <i class="iconfont icon-caidan" onclick="toggleMenu()"></i>
+            <div class="menu">
+              <a href="./home.html">Home </a>
+              <a href="./task.html"> Task </a>
+              <a href="./pomodoro.html">Pomodoro </a>
+              <a class="active" href="./dictionary.html">Dictionary</a>
+              <a href="./kanban.html">Kanban </a>
+            </div>
           </div>
         </header>
         <!-- body -->
@@ -64,7 +78,7 @@
             </div>
           </div>
           <div class="right">
-            <!--  audio  -->
+            <!-- audio -->
             <div class="music-wrap">
               <h3>Music</h3>
               <div class="audio-wrap">
@@ -87,12 +101,12 @@
                 </div>
               </div>
             </div>
-            <!--calendar -->
+            <!-- calendar -->
             <div class="calendar-wrap">
               <h3>Calendar</h3>
               <p id="today"></p>
             </div>
-            <!-- timer  -->
+            <!-- timer -->
             <div class="timer-wrap">
               <h3>Stopwatch Timer</h3>
               <div class="count-box">

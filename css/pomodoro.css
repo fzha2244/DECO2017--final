@@ -1,9 +1,9 @@
 .pomodoro-wrap {
-  padding: 30px;
+  padding: 20px;
   display: flex;
   align-items: center;
   background-color: #fff;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .pomodoro-box {
@@ -20,7 +20,7 @@
   margin-top: 30px;
   padding: 20px;
   background-color: #fff;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .setting-wrap ul {
@@ -43,4 +43,19 @@
   padding: 10px;
   border: 2px solid #eee;
   text-align: center;
+}
+
+@media screen and (max-width: 540px) {
+  .pomodoro-wrap .btns button {
+    margin: 10px;
+  }
+  .pomodoro-wrap h3 {
+    display: none;
+  }
+  .setting-wrap ul {
+    flex-wrap: wrap;
+  }
+  .setting-wrap li {
+    width: 100%;
+  }
 }
