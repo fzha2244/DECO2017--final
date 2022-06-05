@@ -4,12 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>Task Management</title>
     <link rel="stylesheet" href="./font/iconfont.css" />
     <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/task.css" />
   </head>
-
   <body>
     <div class="container">
       <!-- Left navigation bar -->
@@ -19,10 +18,8 @@
           <h1 class="title">StudBud</h1>
         </div>
         <div class="menu-wrap">
-          <a class="active" href="./home.html">
-            <i class="iconfont icon-zhuye"></i>Home
-          </a>
-          <a href="./task.html">
+          <a href="./home.html"> <i class="iconfont icon-zhuye"></i>Home </a>
+          <a class="active" href="./task.html">
             <i class="iconfont icon-qianbao"></i>Task Management
           </a>
           <a href="./pomodoro.html">
@@ -66,27 +63,13 @@
         <!-- body -->
         <main>
           <div class="left">
-            <div class="box-wrap">
-              <div class="box pending">
-                <i class="iconfont icon-tixing"></i>
-                <span>Pending</span>
-                <span>2</span>
-              </div>
-              <div class="box processing">
-                <i class="iconfont icon-dengdai"></i>
-                <span>Pending</span>
-                <span>2</span>
-              </div>
-              <div class="box solved">
-                <i class="iconfont icon-wancheng"></i>
-                <span>Pending</span>
-                <span>2</span>
-              </div>
-            </div>
-            <!-- chart -->
-            <div class="chart-wrap">
-              <h3>Task Statistics</h3>
-              <img src="./imgs/task-statistics.png" alt="" />
+            <!-- task -->
+            <div class="task-wrap">
+              <i
+                class="add iconfont icon-icon--tianjia"
+                onclick="showDialog()"
+              ></i>
+              <ul class="task-list"></ul>
             </div>
           </div>
           <div class="right">
@@ -107,7 +90,7 @@
                       onclick="nextSong()"
                     ></i>
                     <audio id="audio" src="" controls>
-                    Your browser does not support the audio element
+                      Your browser does not support the audio element
                     </audio>
                   </div>
                 </div>
@@ -144,6 +127,101 @@
         </main>
       </div>
     </div>
+    <div class="task-mask">
+      <div class="task-dialog">
+        <!-- <i class="iconfont icon-qingdan"></i> -->
+        <label>
+          Name:
+          <input id="nameInput" type="text" placeholder="enter name" />
+        </label>
+        <label
+          >Due date:
+          <input id="dueInput" type="text" placeholder="enter time" />
+        </label>
+        <label
+          >Estimated time:
+          <input id="estimatedInput" type="text" placeholder="enter time" />
+        </label>
+        <label>
+          Priority rating:
+          <select id="ratingInput">
+            <option value="High">High</option>
+            <option value="Middle">Middle</option>
+            <option value="Low">Low</option>
+          </select>
+        </label>
+        <label>
+          Completion status:
+          <select id="statusInput">
+            <option value="Pending">Pending</option>
+            <option value="Processing">Processing</option>
+            <option value="Solved">Solved</option>
+          </select>
+        </label>
+
+        <button class="submit" onclick="submit(event)">Submit</button>
+      </div>
+    </div>
+    <script>
+      var taskListEle = document.querySelector(".task-list");
+      var taskMaskEle = document.querySelector(".task-mask");
+      var nameInputELe = document.querySelector("#nameInput");
+      var dueInputELe = document.querySelector("#dueInput");
+      var estimatedInputELe = document.querySelector("#estimatedInput");
+      var ratingInputELe = document.querySelector("#ratingInput");
+      var statusInputEle = document.querySelector("#statusInput");
+
+      // Show pop-up
+      function showDialog() {
+        taskMaskEle.style.display = "block";
+      }
+      function hideDialog() {
+        taskMaskEle.style.display = "none";
+      }
+
+      // new data
+      function submit(event) {
+        var html = `<li class="task">
+          <i class="iconfont icon-qingdan"></i>
+          <div class="task-content">
+            <p class="title">Deco ${nameInputELe.value}</p>
+            <p class="date">Due date:${dueInputELe.value}</p>
+            <div class="task-bottom">
+              <p class="estimated">Estimated time: ${estimatedInputELe.value}min</p>
+              <p class="rating">${ratingInputELe.value}</p>
+              <p class="status">${statusInputEle.value}</p>
+              <!-- <i class="iconfont icon-bianji"></i> -->
+            </div>
+          </div>
+          <i class="start iconfont icon-bofang"></i>
+        </li>`;
+
+        taskListEle.insertAdjacentHTML("beforeend", html);
+        hideDialog();
+      }
+
+      // Change Status
+      taskListEle.addEventListener("click", function (e) {
+        e = e || window.event;
+        var t = e.target || e.srcElement;
+        var name = t.tagName.toLowerCase();
+        if (name == "i") {
+          // var isEdit = e.target.classList[1] == "icon-bianji";
+          var isStart = e.target.classList[2] == "icon-bofang";
+          console.log(isStart);
+          if (isStart) {
+            var statusEle = t.parentNode.querySelector(".status");
+            if (statusEle.innerHTML == "Pending") {
+              statusEle.innerHTML = "Processing";
+            } else if (statusEle.innerHTML == "Processing") {
+              statusEle.innerHTML = "Solved";
+              var iconELe = t.parentNode.lastElementChild;
+              iconELe.classList.replace("icon-bofang", "iconfont");
+            }
+          }
+        }
+      });
+    </script>
     <script src="./js/search.js"></script>
     <script src="./js/timer.js"></script>
     <script src="./js/audio.js"></script>
