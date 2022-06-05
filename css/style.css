@@ -1,5 +1,6 @@
-/* Reset Style in utf8 */
+
 @charset 'utf-8';
+
 * {
   box-sizing: border-box;
   padding: 0;
@@ -26,11 +27,14 @@ a:visited,
 a:active {
   color: #000;
   text-decoration: none;
+
 }
+
 img {
   border: 0;
+
 }
-/*  Public */
+
 
 .container {
   display: flex;
@@ -39,8 +43,8 @@ img {
 
 /* Left navigation bar */
 .aside {
-  padding-left: 30px;
-  width: 250px;
+  padding-left: 20px;
+  /* width: 250px; */
   background-color: #fff;
 }
 
@@ -59,6 +63,7 @@ img {
 
 .aside a {
   display: block;
+  width: 180px;
   line-height: 50px;
 }
 
@@ -94,7 +99,7 @@ header input {
 }
 
 .user {
-  margin-left: 200px;
+  margin-left: 10%;
   display: flex;
   align-items: center;
 }
@@ -106,7 +111,7 @@ header input {
   border-radius: 50%;
 }
 
-/* Body */
+/* body*/
 main {
   padding: 30px;
   display: flex;
@@ -154,12 +159,15 @@ main {
   cursor: pointer;
 }
 
+#audio {
+}
+
 /* calendar */
 .calendar-wrap {
   margin: 30px 0;
 }
 
-/* counter */
+/* timer */
 .count-box {
   margin: 30px 0;
   display: flex;

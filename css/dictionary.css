@@ -1,0 +1,70 @@
+/* dictionary样式 */
+
+.dictionary-wrap {
+  /* display: flex;
+  justify-content: space-between; */
+  padding: 30px;
+  height: 100%;
+  background-color: #fff;
+}
+
+.dictionary-wrap > * {
+  margin-bottom: 40px;
+}
+
+.input-wrap {
+  position: relative;
+}
+
+#dictionary {
+  padding: 15px;
+  display: block;
+  width: 100%;
+  border: 2px solid #f4faff;
+}
+
+.input-wrap i {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  cursor: pointer;
+}
+
+h4 {
+  border-left: 4px solid #4790fe;
+  padding-left: 20px;
+}
+
+#synonyms {
+  display: flex;
+}
+#synonyms li {
+  /* width: 100px; */
+  margin-right: 20px;
+  padding: 20px;
+  background-color: #f4faff;
+}
+
+.pending {
+  background-color: #4790fe;
+}
+.processing {
+  background-color: #63cff5;
+}
+.solved {
+  background-color: #6259e9;
+}
+
+.box img {
+  width: 20px;
+  height: 20px;
+}
+
+.chart-wrap {
+  width: 100%;
+  margin-top: 30px;
+}
+.chart-wrap img {
+  width: 100%;
+  margin-top: 30px;
+}

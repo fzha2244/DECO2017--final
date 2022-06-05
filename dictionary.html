@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+    <title>Dictionary</title>
     <link rel="stylesheet" href="./font/iconfont.css" />
     <link rel="stylesheet" href="./css/style.css" />
-    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/dictionary.css" />
   </head>
 
   <body>
@@ -19,16 +19,14 @@
           <h1 class="title">StudBud</h1>
         </div>
         <div class="menu-wrap">
-          <a class="active" href="./home.html">
-            <i class="iconfont icon-zhuye"></i>Home
-          </a>
+          <a href="./home.html"> <i class="iconfont icon-zhuye"></i>Home </a>
           <a href="./task.html">
             <i class="iconfont icon-qianbao"></i>Task Management
           </a>
           <a href="./pomodoro.html">
             <i class="iconfont icon-shizhong"></i>Pomodoro Timer</a
           >
-          <a href="./dictionary.html">
+          <a class="active" href="./dictionary.html">
             <i class="iconfont icon-qingdan"></i>Dictionary</a
           >
           <a href="./kanban.html">
@@ -37,7 +35,7 @@
         </div>
       </aside>
       <div class="content">
-      <!-- header -->
+        <!-- header -->
         <header>
           <input type="text" placeholder="enter to search" />
           <div class="user">
@@ -45,30 +43,20 @@
             <span class="name">User</span>
           </div>
         </header>
-       <!-- body -->
+        <!-- body -->
         <main>
           <div class="left">
-            <div class="box-wrap">
-              <div class="box pending">
-                <i class="iconfont icon-tixing"></i>
-                <span>Pending</span>
-                <span>2</span>
+            <!-- dictionary -->
+            <div class="dictionary-wrap">
+              <h3>Dictionary</h3>
+              <div class="input-wrap">
+                <input id="dictionary" type="text" />
+                <i class="iconfont icon-search" onclick="search()"></i>
               </div>
-              <div class="box processing">
-                <i class="iconfont icon-dengdai"></i>
-                <span>Pending</span>
-                <span>2</span>
-              </div>
-              <div class="box solved">
-                <i class="iconfont icon-wancheng"></i>
-                <span>Pending</span>
-                <span>2</span>
-              </div>
-            </div>
-            <!-- chart -->
-            <div class="chart-wrap">
-              <h3>Task Statistics</h3>
-              <img src="./imgs/task-statistics.png" alt="" />
+              <h4>Definition:</h4>
+              <p id="definition"></p>
+              <h4>synonyms:</h4>
+              <ul id="synonyms"></ul>
             </div>
           </div>
           <div class="right">
@@ -95,12 +83,12 @@
                 </div>
               </div>
             </div>
-            <!-- 日历 -->
+            <!-- calendar -->
             <div class="calendar-wrap">
               <h3>Calendar</h3>
               <p id="today"></p>
             </div>
-            <!-- 定时器 -->
+            <!-- timer -->
             <div class="timer-wrap">
               <h3>Stopwatch Timer</h3>
               <div class="count-box">
@@ -126,6 +114,41 @@
         </main>
       </div>
     </div>
+    <script>
+      var dictionaryEle = document.querySelector("#dictionary");
+      var definitionEle = document.querySelector("#definition");
+      var synonymsEle = document.querySelector("#synonyms");
+      // search
+      function search() {
+        var word = dictionaryEle.value;
+        console.log(word);
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState == 4 && xhr.status == 200) {
+            var res = JSON.parse(xhr.responseText);
+            console.log(res);
+            var definition = res[0].meanings[0].definitions[0].definition;
+            var synonyms = res[0].meanings[0].synonyms;
+            definitionEle.innerHTML = definition;
+            console.log(synonyms);
+            for (var i = synonymsEle.childNodes.length - 1; i >= 0; i--) {
+              synonymsEle.removeChild(synonymsEle.childNodes[i]);
+            }
+            synonyms.forEach((element) => {
+              var liEle = document.createElement("li");
+              liEle.innerHTML = element;
+              synonymsEle.append(liEle);
+            });
+          }
+        };
+        xhr.open(
+          "GET",
+          "https://api.dictionaryapi.dev/api/v2/entries/en/" + word,
+          true
+        );
+        xhr.send();
+      }
+    </script>
     <script src="./js/timer.js"></script>
     <script src="./js/audio.js"></script>
     <script src="./js/today.js"></script>
