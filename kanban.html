@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kanban board</title>
+    <link rel="stylesheet" href="./font/iconfont.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/kanban.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- Left navigation bar-->
+      <aside class="aside">
+        <div class="title-wrap">
+          <img class="logo" src="./imgs/logo.png" alt="" />
+          <h1 class="title">StudBud</h1>
+        </div>
+        <div class="menu-wrap">
+          <a href="./home.html"> <i class="iconfont icon-zhuye"></i>Home </a>
+          <a href="./task.html">
+            <i class="iconfont icon-qianbao"></i>Task Management
+          </a>
+          <a href="./pomodoro.html">
+            <i class="iconfont icon-shizhong"></i>Pomodoro Timer</a
+          >
+          <a href="./dictionary.html">
+            <i class="iconfont icon-qingdan"></i>Dictionary</a
+          >
+          <a class="active" href="./kanban.html">
+            <i class="iconfont icon-keshikanban"></i>Kanban board</a
+          >
+        </div>
+      </aside>
+      <div class="content">
+        <!-- header-->
+        <header>
+          <input
+            type="text"
+            placeholder="enter to search"
+            onkeydown="searchWord(event)"
+          />
+          <div class="user">
+            <img class="avatar" src="./imgs/avatar.jpg" alt="" />
+            <span class="name">User</span>
+          </div>
+        </header>
+        <!-- body -->
+        <main>
+          <div class="left">
+            <!--  kanban --->
+            <div class="kanban-wrap">
+              <div class="kanban">
+                <h4>Pedding</h4>
+                <ul id="pedding"></ul>
+                <button class="add">
+                  <i class="iconfont icon-icon--tianjia"></i>
+                </button>
+              </div>
+              <div class="kanban">
+                <h4>Processing</h4>
+                <ul id="processing"></ul>
+                <button class="add">
+                  <i class="iconfont icon-icon--tianjia"></i>
+                </button>
+              </div>
+              <div class="kanban">
+                <h4>Solved</h4>
+                <ul id="solved"></ul>
+                <button class="add">
+                  <i class="iconfont icon-icon--tianjia"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            <!-- audio  -->
+            <div class="music-wrap">
+              <h3>Music</h3>
+              <div class="audio-wrap">
+                <img class="poster" src="./imgs/avatar.jpg" alt="" />
+                <div>
+                  <h4 id="songNameEle"></h4>
+                  <div class="audio-control">
+                    <i
+                      class="iconfont icon-arrow-double-left"
+                      onclick="lastSong()"
+                    ></i>
+                    <i
+                      class="iconfont icon-arrow-double-right"
+                      onclick="nextSong()"
+                    ></i>
+                    <audio id="audio" src="" controls>
+                      Your browser does not support the audio element
+                    </audio>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- calendar -->
+            <div class="calendar-wrap">
+              <h3>Calendar</h3>
+              <p id="today"></p>
+            </div>
+            <!-- timer  -->
+            <div class="timer-wrap">
+              <h3>Stopwatch Timer</h3>
+              <div class="count-box">
+                <div class="count-wrap">
+                  <span id="count">0</span>
+                  <span>Min</span>
+                </div>
+              </div>
+              <div class="btns">
+                <button id="start" onclick="start()">
+                  <i class="iconfont icon-bofang"></i>
+                  Start
+                </button>
+                <button id="pause" onclick="pause()">
+                  <i class="iconfont icon-zanting1"></i>Pause
+                </button>
+                <button id="reset" onclick="reset()">
+                  <i class="iconfont icon-zhongxintijiao"></i>Reset
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script>
+      var peddingEle = document.querySelector("#pedding");
+      var processingEle = document.querySelector("#processing");
+      var solvedEle = document.querySelector("#solved");
+      var addEles = document.querySelectorAll(".add");
+
+      // get date
+      function getDate() {
+        var time = new Date();
+        var year = time.getFullYear();
+        var month = time.getMonth() + 1;
+        var date = time.getDate();
+        return year + "-" + month + "-" + date;
+      }
+
+      //  new data
+      for (let i = 0; i < addEles.length; i++) {
+        addEles[i].addEventListener("click", function (event) {
+          var ulEle = this.parentNode.querySelector("ul");
+          var title =
+            Math.floor(Math.random() * 2000 + 1) +
+            ":A" +
+            Math.floor(Math.random() * 10 + 1);
+          var date = getDate();
+          var html;
+          switch (ulEle.id) {
+            case "pedding":
+              html = `<li>
+                    <div>
+                      <p class="title">Deco ${title}</p>
+                      <p class="date">Due date:${date}</p>
+                    </div>
+                    <i class="iconfont icon-bofang"></i>
+                  </li>`;
+              peddingEle.insertAdjacentHTML("beforeend", html);
+              break;
+            case "processing":
+              html = `<li>
+                    <div>
+                      <p class="title">Deco ${title}</p>
+                      <p class="date">Due date:${date}</p>
+                    </div>
+                    <i class="iconfont icon-wancheng"></i>
+                  </li>`;
+              processingEle.insertAdjacentHTML("beforeend", html);
+              break;
+            case "solved":
+              html = `<li>
+                    <div>
+                      <p class="title">Deco ${title}</p>
+                      <p class="date">Due date:${date}</p>
+                    </div>
+                  </li>`;
+              solvedEle.insertAdjacentHTML("beforeend", html);
+              break;
+            default:
+              break;
+          }
+        });
+      }
+
+      //  Pedding becomes processing when clicked
+      peddingEle.addEventListener("click", function (e) {
+        e = e || window.event;
+        var t = e.target || e.srcElement;
+        var name = t.tagName.toLowerCase();
+        if (name == "i") {
+          var iconELe = t.parentNode.lastElementChild;
+          iconELe.classList.replace("icon-bofang", "icon-wancheng");
+          console.log(iconELe);
+          processingEle.append(t.parentNode);
+        }
+      });
+
+      //  Processing become solved when clicked
+      processingEle.addEventListener("click", function (e) {
+        e = e || window.event;
+        var t = e.target || e.srcElement;
+        var name = t.tagName.toLowerCase();
+        if (name == "i") {
+          var iconELe = t.parentNode.lastElementChild;
+          iconELe.classList.replace("icon-wancheng", "iconfont");
+          console.log(iconELe);
+          solvedEle.append(t.parentNode);
+        }
+      });
+    </script>
+    <script src="./js/search.js"></script>
+    <script src="./js/timer.js"></script>
+    <script src="./js/audio.js"></script>
+    <script src="./js/today.js"></script>
+  </body>
+</html>

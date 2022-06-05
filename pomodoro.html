@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="./font/iconfont.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/pomodoro.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Left navigation bar -->
+      <aside class="aside">
+        <div class="title-wrap">
+          <img class="logo" src="./imgs/logo.png" alt="" />
+          <h1 class="title">StudBud</h1>
+        </div>
+        <div class="menu-wrap">
+          <a href="./home.html"> <i class="iconfont icon-zhuye"></i>Home </a>
+          <a href="./task.html">
+            <i class="iconfont icon-qianbao"></i>Task Management
+          </a>
+          <a class="active" href="./pomodoro.html">
+            <i class="iconfont icon-shizhong"></i>Pomodoro Timer</a
+          >
+          <a href="./dictionary.html">
+            <i class="iconfont icon-qingdan"></i>Dictionary</a
+          >
+          <a href="./kanban.html">
+            <i class="iconfont icon-keshikanban"></i>Kanban board</a
+          >
+        </div>
+      </aside>
+      <div class="content">
+        <!-- header -->
+        <header>
+          <input
+            type="text"
+            placeholder="enter to search"
+            onkeydown="searchWord(event)"
+          />
+          <div class="user">
+            <img class="avatar" src="./imgs/avatar.jpg" alt="" />
+            <span class="name">User</span>
+          </div>
+        </header>
+        <!--body-->
+        <main>
+          <div class="left">
+            <!--  pomodoro -->
+            <div class="pomodoro-wrap">
+              <h3>Pomodoro Timer</h3>
+              <div class="pomodoro-box">
+                <div class="count-wrap">
+                  <span id="pomodoroTime">0</span>
+                  <span>Min</span>
+                </div>
+              </div>
+              <div class="btns">
+                <button id="startPomodoro" onclick="startPomodoro()">
+                  <i class="iconfont icon-bofang"></i> Start
+                </button>
+                <button id="pausePomodoro" onclick="pausePomodoro()">
+                  <i class="iconfont icon-zanting1"></i>Pause
+                </button>
+                <button id="resetPomodoro" onclick="resetPomodoro()">
+                  <i class="iconfont icon-zhongxintijiao"></i>Reset
+                </button>
+              </div>
+              <div class="btns">
+                <button id="shortBreak" onclick="shortBreak()">
+                  <i class="iconfont icon-shizhong"></i> Short Break
+                </button>
+                <button id="longBreak" onclick="longBreak()">
+                  <i class="iconfont icon-shizhong"></i>Long Break
+                </button>
+              </div>
+            </div>
+            <!-- setting -->
+            <div class="setting-wrap">
+              <h3>Setting</h3>
+              <ul>
+                <li>
+                  <label>Pomodoro:</label>
+                  <input
+                    id="pomodoroMin"
+                    type="text"
+                    placeholder="25min"
+                    onkeydown="set(event)"
+                  />
+                  <label>Auto start:</label>
+                  <input type="radio" checked />
+                </li>
+                <li>
+                  <label>Short Break:</label>
+                  <input
+                    id="shortBreakMin"
+                    type="text"
+                    placeholder="5min"
+                    onkeydown="set(event)"
+                  />
+                  <label>Auto start:</label>
+                  <input type="radio" checked />
+                </li>
+                <li>
+                  <label>Long Break</label>
+                  <input
+                    id="longBreakMin"
+                    type="text"
+                    placeholder="15min"
+                    onkeydown="set(event)"
+                  />
+                  <label>Auto start:</label>
+                  <input type="radio" checked />
+                </li>
+                <li>
+                  <label>Interval of Long Break:</label>
+                  <input
+                    id="interval"
+                    type="text"
+                    placeholder="4 Pomodoro"
+                    onkeydown="set(event)"
+                  />
+                  <label>Notification</label>
+                  <input type="radio" checked />
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="right">
+            <!--  audio-->
+            <div class="music-wrap">
+              <h3>Music</h3>
+              <div class="audio-wrap">
+                <img class="poster" src="./imgs/avatar.jpg" alt="" />
+                <div>
+                  <h4 id="songNameEle"></h4>
+                  <div class="audio-control">
+                    <i
+                      class="iconfont icon-arrow-double-left"
+                      onclick="lastSong()"
+                    ></i>
+                    <i
+                      class="iconfont icon-arrow-double-right"
+                      onclick="nextSong()"
+                    ></i>
+                    <audio id="audio" src="" controls>
+                      Your browser does not support the audio element
+                    </audio>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- calendar -->
+            <div class="calendar-wrap">
+              <h3>Calendar</h3>
+              <p id="today"></p>
+            </div>
+            <!--  timer-->
+            <div class="timer-wrap">
+              <h3>Stopwatch Timer</h3>
+              <div class="count-box">
+                <div class="count-wrap">
+                  <span id="count">0</span>
+                  <span>Min</span>
+                </div>
+              </div>
+              <div class="btns">
+                <button id="start" onclick="start()">
+                  <i class="iconfont icon-bofang"></i>
+                  Start
+                </button>
+                <button id="pause" onclick="pause()">
+                  <i class="iconfont icon-zanting1"></i>Pause
+                </button>
+                <button id="reset" onclick="reset()">
+                  <i class="iconfont icon-zhongxintijiao"></i>Reset
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script>
+      //  pomodoro
+      var pomodoroTimeEle = document.querySelector("#pomodoroTime");
+      var startPomodoroEle = document.querySelector("#startPomodoro");
+      var pausePomodoroEle = document.querySelector("#pausePomodoro");
+      var resetPomodoroEle = document.querySelector("#resetPomodoro");
+      var shortBreakEle = document.querySelector("#shortBreak");
+      var longBreakEle = document.querySelector("#longBreak");
+      var pomodoroMin = 25;
+      var shortBreakMin = 5;
+      var longBreakMin = 15;
+      var interval = 4;
+      //  Default loop settings
+      var isLoop = true;
+      var loop = [];
+      var loopIndex = 0;
+
+      var pomodoroTime = 0;
+      var pomodoroTimer = null;
+
+      initPomodoro();
+      initLoop();
+
+      // Initializing
+      function initPomodoro(time = pomodoroMin) {
+        pomodoroTime = time;
+        pomodoroTimeEle.innerHTML = pomodoroTime;
+      }
+
+      function initLoop() {
+        loop = [];
+        for (var index = 0; index < interval; index++) {
+          loop.push(parseInt(pomodoroMin));
+          if (index !== interval - 1) {
+            loop.push(parseInt(shortBreakMin));
+          } else {
+            loop.push(parseInt(longBreakMin));
+          }
+        }
+        console.log(loop);
+      }
+
+      // shortBreak
+      function shortBreak() {
+        isLoop = false;
+        pausePomodoro();
+        initPomodoro(shortBreakMin);
+      }
+
+      // longBreak
+      function longBreak() {
+        isLoop = false;
+        pausePomodoro();
+        initPomodoro(longBreakMin);
+      }
+    // Start the countdown
+      function startPomodoro() {
+        if (isLoop) {
+          console.log(loop[loopIndex]);
+          if (!pomodoroTimer) {
+            pomodoroTimer = setInterval(() => {
+              if (loop[loopIndex] < 0) {
+                pausePomodoro();
+                loopIndex++;
+                if (loopIndex < loop.length) {
+                  alert("时间到");
+                  startPomodoro();
+                } else {
+                  alert("周期结束");
+                  resetPomodoro();
+                  return;
+                }
+              }
+              pomodoroTimeEle.innerHTML = loop[loopIndex];
+              loop[loopIndex]--;
+            }, 100);
+            startPomodoroEle.style.display = "none";
+            pausePomodoroEle.style.display = "block";
+          }
+        }
+      // break
+        else {
+          console.log("休息");
+          if (!pomodoroTimer) {
+            pomodoroTimer = setInterval(() => {
+              if (pomodoroTime < 0) {
+                resetPomodoro();
+                alert("时间到");
+              }
+              pomodoroTimeEle.innerHTML = pomodoroTime;
+              pomodoroTime--;
+            }, 100);
+            startPomodoroEle.style.display = "none";
+            pausePomodoroEle.style.display = "block";
+          }
+        }
+      }
+
+      function pausePomodoro() {
+        clearInterval(pomodoroTimer);
+        pomodoroTimer = null;
+        startPomodoroEle.style.display = "block";
+        pausePomodoroEle.style.display = "none";
+      }
+
+      function resetPomodoro() {
+        pausePomodoro();
+        initPomodoro();
+        initLoop();
+      }
+
+      // setting
+      function set(event) {
+        console.log(event.target.value);
+        var value = event.target.value;
+        if (event.keyCode == 13) {
+          switch (event.target.id) {
+            case "pomodoroMin":
+              pomodoroMin = value;
+              initPomodoro(value);
+              break;
+            case "shortBreakMin":
+              shortBreakMin = value;
+              break;
+            case "longBreakMin":
+              longBreakMin = value;
+              break;
+            case "interval":
+              interval = value;
+              break;
+            default:
+              break;
+          }
+          initLoop();
+        }
+      }
+    </script>
+    <script src="./js/search.js"></script>
+    <script src="./js/timer.js"></script>
+    <script src="./js/audio.js"></script>
+    <script src="./js/today.js"></script>
+  </body>
+</html>

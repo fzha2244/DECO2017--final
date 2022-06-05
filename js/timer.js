@@ -24,6 +24,7 @@ function pause() {
   startEle.style.display = "block";
   pauseEle.style.display = "none";
 }
+
 // reset
 function reset() {
   pause();

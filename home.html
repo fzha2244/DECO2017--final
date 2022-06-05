@@ -12,7 +12,7 @@
 
   <body>
     <div class="container">
-    <!-- Left navigation bar -->
+      <!-- Left navigation bar -->
       <aside class="aside">
         <div class="title-wrap">
           <img class="logo" src="./imgs/logo.png" alt="" />
@@ -37,15 +37,19 @@
         </div>
       </aside>
       <div class="content">
-      <!-- header -->
+        <!--  header -->
         <header>
-          <input type="text" placeholder="enter to search" />
+          <input
+            type="text"
+            placeholder="enter to search"
+            onkeydown="searchWord(event)"
+          />
           <div class="user">
-            <img class="avatar" src="./imgs/logo.png" alt="" />
+            <img class="avatar" src="./imgs/avatar.jpg" alt="" />
             <span class="name">User</span>
           </div>
         </header>
-       <!-- body -->
+        <!-- body  -->
         <main>
           <div class="left">
             <div class="box-wrap">
@@ -72,11 +76,11 @@
             </div>
           </div>
           <div class="right">
-            <!-- audio -->
+            <!--  audio-->
             <div class="music-wrap">
               <h3>Music</h3>
               <div class="audio-wrap">
-                <img class="poster" src="./imgs/logo.png" alt="" />
+                <img class="poster" src="./imgs/avatar.jpg" alt="" />
                 <div>
                   <h4 id="songNameEle"></h4>
                   <div class="audio-control">
@@ -95,12 +99,12 @@
                 </div>
               </div>
             </div>
-            <!-- 日历 -->
+            <!-- calendar-->
             <div class="calendar-wrap">
               <h3>Calendar</h3>
               <p id="today"></p>
             </div>
-            <!-- 定时器 -->
+            <!-- timer -->
             <div class="timer-wrap">
               <h3>Stopwatch Timer</h3>
               <div class="count-box">
@@ -126,6 +130,7 @@
         </main>
       </div>
     </div>
+    <script src="./js/search.js"></script>
     <script src="./js/timer.js"></script>
     <script src="./js/audio.js"></script>
     <script src="./js/today.js"></script>

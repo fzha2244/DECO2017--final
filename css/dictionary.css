@@ -1,8 +1,7 @@
-/* dictionary样式 */
+/* dictionary */
 
 .dictionary-wrap {
-  /* display: flex;
-  justify-content: space-between; */
+
   padding: 30px;
   height: 100%;
   background-color: #fff;
@@ -39,7 +38,7 @@ h4 {
   display: flex;
 }
 #synonyms li {
-  /* width: 100px; */
+
   margin-right: 20px;
   padding: 20px;
   background-color: #f4faff;

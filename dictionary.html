@@ -12,7 +12,7 @@
 
   <body>
     <div class="container">
-    <!-- Left navigation bar -->
+      <!-- Left navigation bar -->
       <aside class="aside">
         <div class="title-wrap">
           <img class="logo" src="./imgs/logo.png" alt="" />
@@ -37,9 +37,13 @@
       <div class="content">
         <!-- header -->
         <header>
-          <input type="text" placeholder="enter to search" />
+          <input
+            type="text"
+            placeholder="enter to search"
+            onkeydown="searchWord(event)"
+          />
           <div class="user">
-            <img class="avatar" src="./imgs/logo.png" alt="" />
+            <img class="avatar" src="./imgs/avatar.jpg" alt="" />
             <span class="name">User</span>
           </div>
         </header>
@@ -60,11 +64,11 @@
             </div>
           </div>
           <div class="right">
-            <!-- audio -->
+            <!--  audio  -->
             <div class="music-wrap">
               <h3>Music</h3>
               <div class="audio-wrap">
-                <img class="poster" src="./imgs/logo.png" alt="" />
+                <img class="poster" src="./imgs/avatar.jpg" alt="" />
                 <div>
                   <h4 id="songNameEle"></h4>
                   <div class="audio-control">
@@ -83,12 +87,12 @@
                 </div>
               </div>
             </div>
-            <!-- calendar -->
+            <!--calendar -->
             <div class="calendar-wrap">
               <h3>Calendar</h3>
               <p id="today"></p>
             </div>
-            <!-- timer -->
+            <!-- timer  -->
             <div class="timer-wrap">
               <h3>Stopwatch Timer</h3>
               <div class="count-box">
@@ -118,10 +122,17 @@
       var dictionaryEle = document.querySelector("#dictionary");
       var definitionEle = document.querySelector("#definition");
       var synonymsEle = document.querySelector("#synonyms");
+
+      if (location.search) {
+        var word = location.search.split("?")[1].split("=")[1];
+        dictionaryEle.value = word;
+        search();
+      }
+
       // search
       function search() {
-        var word = dictionaryEle.value;
-        console.log(word);
+        var dictionaryWord = dictionaryEle.value;
+        console.log(dictionaryWord);
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
           if (xhr.readyState == 4 && xhr.status == 200) {
@@ -143,12 +154,13 @@
         };
         xhr.open(
           "GET",
-          "https://api.dictionaryapi.dev/api/v2/entries/en/" + word,
+          "https://api.dictionaryapi.dev/api/v2/entries/en/" + dictionaryWord,
           true
         );
         xhr.send();
       }
     </script>
+    <script src="./js/search.js"></script>
     <script src="./js/timer.js"></script>
     <script src="./js/audio.js"></script>
     <script src="./js/today.js"></script>
